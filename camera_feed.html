@@ -15,7 +15,7 @@
       try {
         // Request camera access with facingMode: "environment" for back camera
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: { exact: "environment" } } // This requests the back camera
+          video: { facingMode: {  "environment" } } // This requests the back camera
         });
 
         // Attach the stream to the video element to display the camera feed
