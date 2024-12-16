@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Camera Feed</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Back Camera Feed</title>
 </head>
 <body>
-    <video id="video" width="100%" height="100%" autoplay></video>
+  <h1>Back Camera Feed</h1>
+  <video id="video" width="640" height="480" autoplay></video>
 
-    <script>
-        // Function to start the camera feed
-        async function startCamera() {
-            const videoElement = document.getElementById('video');
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            videoElement.srcObject = stream;
-        }
+  <script>
+    // Function to request access to the back camera
+    async function startBackCamera() {
+      try {
+        // Request camera access with facingMode: "environment" for back camera
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: { exact: "environment" } } // This requests the back camera
+        });
 
-        // Start camera when the page is loaded
-        window.onload = startCamera;
-    </script>
+        // Attach the stream to the video element to display the camera feed
+        const videoElement = document.getElementById("video");
+        videoElement.srcObject = stream;
+      } catch (err) {
+        console.error("Error accessing camera: ", err);
+        alert("Camera access denied or not available! Please enable camera permissions.");
+      }
+    }
+
+    // Start the camera feed after page loads
+    window.onload = startBackCamera;
+  </script>
 </body>
 </html>
