@@ -1,4 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Back Camera Feed</title>
+</head>
+<body>
+  <h1>Back Camera Feed</h1>
+  <video id="video" width="640" height="480" autoplay></video>
 
+  <script>
+    // Function to request access to the back camera
+    async function startBackCamera() {
+      try {
+        // Request camera access with facingMode: "environment" for back camera
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: { exact: "environment" } } // This requests the back camera
+        });
+
+        // Attach the stream to the video element to display the camera feed
+        const videoElement = document.getElementById("video");
+        videoElement.srcObject = stream;
       } catch (err) {
         console.error("Error accessing camera: ", err);
         alert("Camera access denied or not available! Please enable camera permissions.");
